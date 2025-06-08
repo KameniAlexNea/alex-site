@@ -1,19 +1,24 @@
-<section id="portfolio" class="portfolio">
+<section id="portfolio" class="py-5 bg-light">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">Innovative AI solutions and research projects</p>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary position-relative d-inline-block">
+                Featured Projects
+                <div class="position-absolute bottom-0 start-50 translate-middle-x" style="width: 50px; height: 3px; background: linear-gradient(90deg, #4f46e5, #f59e0b); border-radius: 2px;"></div>
+            </h2>
+            <p class="lead text-muted mt-3">Innovative AI solutions and research projects</p>
         </div>
         
-        <div class="portfolio-filters">
-            <button class="filter-btn active" data-filter="all">All Projects</button>
-            <button class="filter-btn" data-filter="llm">LLM & NLP</button>
-            <button class="filter-btn" data-filter="cv">Computer Vision</button>
-            <button class="filter-btn" data-filter="ml">Machine Learning</button>
-            <button class="filter-btn" data-filter="tools">Tools & Frameworks</button>
+        <div class="text-center mb-4">
+            <div class="btn-group" role="group" aria-label="Portfolio filters">
+                <button class="btn btn-outline-primary active" data-filter="all">All Projects</button>
+                <button class="btn btn-outline-primary" data-filter="llm">LLM & NLP</button>
+                <button class="btn btn-outline-primary" data-filter="cv">Computer Vision</button>
+                <button class="btn btn-outline-primary" data-filter="ml">Machine Learning</button>
+                <button class="btn btn-outline-primary" data-filter="tools">Tools & Frameworks</button>
+            </div>
         </div>
         
-        <div class="portfolio-grid" id="portfolio-grid">
+        <div class="row" id="portfolio-grid">
             <!-- Portfolio items will be dynamically loaded -->
         </div>
         

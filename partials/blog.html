@@ -1,19 +1,24 @@
-<section id="blog" class="blog">
+<section id="blog" class="py-5">
     <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Latest Blog Posts</h2>
-            <p class="section-subtitle">Insights, tutorials, and thoughts on AI and machine learning</p>
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-primary position-relative d-inline-block">
+                Latest Blog Posts
+                <div class="position-absolute bottom-0 start-50 translate-middle-x" style="width: 50px; height: 3px; background: linear-gradient(90deg, #4f46e5, #f59e0b); border-radius: 2px;"></div>
+            </h2>
+            <p class="lead text-muted mt-3">Insights, tutorials, and thoughts on AI and machine learning</p>
         </div>
         
-        <div class="blog-filters">
-            <button class="filter-btn active" data-filter="all">All Posts</button>
-            <button class="filter-btn" data-filter="llm">LLM & NLP</button>
-            <button class="filter-btn" data-filter="cv">Computer Vision</button>
-            <button class="filter-btn" data-filter="ml">Machine Learning</button>
-            <button class="filter-btn" data-filter="tools">Tools & Frameworks</button>
+        <div class="text-center mb-4">
+            <div class="btn-group" role="group" aria-label="Blog filters">
+                <button class="btn btn-outline-primary active" data-filter="all">All Posts</button>
+                <button class="btn btn-outline-primary" data-filter="llm">LLM & NLP</button>
+                <button class="btn btn-outline-primary" data-filter="cv">Computer Vision</button>
+                <button class="btn btn-outline-primary" data-filter="ml">Machine Learning</button>
+                <button class="btn btn-outline-primary" data-filter="tools">Tools & Frameworks</button>
+            </div>
         </div>
         
-        <div class="blog-grid" id="blog-grid">
+        <div class="row" id="blog-grid">
             <!-- Blog posts will be dynamically loaded -->
         </div>
         

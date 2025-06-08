@@ -46,7 +46,7 @@ export class ExperienceManager {
 
     createTimelineItem(item, index) {
         const itemElement = document.createElement('div');
-        itemElement.className = 'timeline-item';
+        itemElement.className = 'mb-4';
         itemElement.setAttribute('data-aos', 'fade-up');
         itemElement.setAttribute('data-aos-delay', (index * 100).toString());
 
@@ -58,8 +58,8 @@ export class ExperienceManager {
         let skillsHtml = '';
         if (item.skills && item.skills.length > 0) {
             skillsHtml = `
-                <div class="tech-stack">
-                    ${item.skills.map(skill => `<span class="tech-tag">${skill}</span>`).join('')}
+                <div class="d-flex flex-wrap gap-1 mt-2">
+                    ${item.skills.map(skill => `<span class="badge bg-primary">${skill}</span>`).join('')}
                 </div>
             `;
         }
@@ -74,17 +74,23 @@ export class ExperienceManager {
         }
 
         itemElement.innerHTML = `
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <div class="timeline-header">
-                    <h3>${title}</h3>
-                    <span class="timeline-company">${company}</span>
-                    <span class="timeline-date">${duration}</span>
-                </div>
-                <div class="timeline-description">
-                    <p>${item.description}</p>
-                    ${achievementsHtml}
-                    ${skillsHtml}
+            <div class="position-relative ps-4 pb-4">
+                <div class="position-absolute top-0 start-0 bg-primary rounded-circle" style="width: 12px; height: 12px; margin-top: 6px;"></div>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h3 class="h5 mb-1">${title}</h3>
+                                <span class="text-primary fw-semibold">${company}</span>
+                            </div>
+                            <span class="badge bg-light text-dark ms-2">${duration}</span>
+                        </div>
+                        <div class="text-muted">
+                            <p class="mb-2">${item.description}</p>
+                            ${achievementsHtml}
+                            ${skillsHtml}
+                        </div>
+                    </div>
                 </div>
             </div>
         `;

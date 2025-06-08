@@ -27,40 +27,33 @@ export class NavigationManager {
     }
 
     setupMobileMenu() {
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        const navOverlay = document.querySelector('.nav-overlay');
-
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                navOverlay.classList.toggle('active');
-                mobileMenuBtn.classList.toggle('active');
-            });
-        }
-
-        if (navOverlay) {
-            navOverlay.addEventListener('click', () => {
-                this.closeMobileMenu();
-            });
-        }
-
+        // Bootstrap navbar toggler is handled automatically by Bootstrap JS
+        // We just need to set up any additional mobile menu functionality
+        
         // Close mobile menu when clicking on nav links
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                this.closeMobileMenu();
+                // Close Bootstrap navbar collapse
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
             });
         });
     }
 
     closeMobileMenu() {
-        const navLinks = document.querySelector('.nav-links');
-        const navOverlay = document.querySelector('.nav-overlay');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-
-        navLinks?.classList.remove('active');
-        navOverlay?.classList.remove('active');
-        mobileMenuBtn?.classList.remove('active');
+        // Close Bootstrap navbar collapse
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                toggle: false
+            });
+            bsCollapse.hide();
+        }
     }
 
     setupScrollEffects() {
@@ -73,31 +66,29 @@ export class NavigationManager {
             }
         });
 
-        // Scroll to top button
-        this.createScrollToTopButton();
+        // Scroll to top button functionality (uses existing back-to-top button from HTML)
+        this.setupScrollToTopButton();
     }
 
-    createScrollToTopButton() {
-        const scrollToTopBtn = document.createElement('button');
-        scrollToTopBtn.className = 'scroll-to-top';
-        scrollToTopBtn.innerHTML = '↑';
-        scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
-        document.body.appendChild(scrollToTopBtn);
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+    setupScrollToTopButton() {
+        const scrollToTopBtn = document.querySelector('.back-to-top');
+        
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.display = 'block';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
             });
-        });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
     }
 
     setActiveNavItem() {

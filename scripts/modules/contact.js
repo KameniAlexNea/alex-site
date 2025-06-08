@@ -63,8 +63,13 @@ export class ContactManager {
 
     showNotification(message, type = 'info') {
         const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
+        const alertClass = type === 'success' ? 'alert-success' : type === 'error' ? 'alert-danger' : 'alert-info';
+        notification.className = `alert ${alertClass} alert-dismissible fade position-fixed top-0 end-0 mt-3 me-3`;
+        notification.style.zIndex = '9999';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
         
         document.body.appendChild(notification);
         
@@ -73,15 +78,17 @@ export class ContactManager {
             notification.classList.add('show');
         }, 100);
         
-        // Remove notification
+        // Auto-remove notification
         setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                if (document.body.contains(notification)) {
-                    document.body.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
+            if (document.body.contains(notification)) {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }
+        }, 5000);
     }
 
     setupDarkModeToggle() {

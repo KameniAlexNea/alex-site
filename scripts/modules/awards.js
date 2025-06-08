@@ -31,23 +31,27 @@ export class AwardsManager {
         if (!container) return;
 
         const awardsHtml = this.awards.map(award => `
-            <div class="award-item">
-                <div class="award-header">
-                    <h3 class="award-title">${award.title}</h3>
-                    <span class="award-year">${award.year}</span>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h3 class="card-title h5">${award.title}</h3>
+                            <span class="badge bg-primary">${award.year}</span>
+                        </div>
+                        <div class="text-primary fw-semibold mb-2">${award.organization}</div>
+                        <p class="card-text text-muted">${award.description}</p>
+                        ${award.details ? `<div class="text-muted small">${award.details}</div>` : ''}
+                    </div>
                 </div>
-                <div class="award-organization">${award.organization}</div>
-                <p class="award-description">${award.description}</p>
-                ${award.details ? `<div class="award-details">${award.details}</div>` : ''}
             </div>
         `).join('');
 
         container.innerHTML = `
-            <div class="awards-section">
-                <h2>Awards & Recognition</h2>
-                <div class="awards-grid">
-                    ${awardsHtml}
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="display-6 fw-bold text-center mb-4">Awards & Recognition</h2>
                 </div>
+                ${awardsHtml}
             </div>
         `;
     }
@@ -61,23 +65,27 @@ export class AwardsManager {
         const sortedAwards = [...this.awards].sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
         const timelineHtml = sortedAwards.map(award => `
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3>${award.title}</h3>
-                        <span class="timeline-year">${award.year}</span>
+            <div class="mb-4">
+                <div class="position-relative ps-4 pb-4">
+                    <div class="position-absolute top-0 start-0 bg-primary rounded-circle" style="width: 12px; height: 12px; margin-top: 6px;"></div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h3 class="h5 mb-1">${award.title}</h3>
+                                <span class="badge bg-primary">${award.year}</span>
+                            </div>
+                            <div class="text-primary fw-semibold mb-2">${award.organization}</div>
+                            <p class="text-muted mb-0">${award.description}</p>
+                        </div>
                     </div>
-                    <div class="timeline-organization">${award.organization}</div>
-                    <p class="timeline-description">${award.description}</p>
                 </div>
             </div>
         `).join('');
 
         container.innerHTML = `
             <div class="awards-timeline">
-                <h2>Awards Timeline</h2>
-                <div class="timeline">
+                <h2 class="display-6 fw-bold text-center mb-4">Awards Timeline</h2>
+                <div class="position-relative">
                     ${timelineHtml}
                 </div>
             </div>

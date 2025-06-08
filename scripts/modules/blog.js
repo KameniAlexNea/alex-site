@@ -26,29 +26,31 @@ export class BlogManager {
     createBlogSection() {
         const section = document.createElement('section');
         section.id = 'blog';
-        section.className = 'blog';
+        section.className = 'py-5';
         section.innerHTML = `
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Latest Blog Posts</h2>
-                    <p class="section-subtitle">Insights, tutorials, and thoughts on AI and machine learning</p>
+                <div class="text-center mb-5">
+                    <h2 class="display-5 fw-bold">Latest Blog Posts</h2>
+                    <p class="lead text-muted">Insights, tutorials, and thoughts on AI and machine learning</p>
                 </div>
                 
-                <div class="blog-filters">
-                    <button class="filter-btn active" data-filter="all">All Posts</button>
-                    <button class="filter-btn" data-filter="llm">LLM & NLP</button>
-                    <button class="filter-btn" data-filter="cv">Computer Vision</button>
-                    <button class="filter-btn" data-filter="ml">Machine Learning</button>
-                    <button class="filter-btn" data-filter="tools">Tools & Frameworks</button>
+                <div class="d-flex justify-content-center mb-4">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-outline-primary active" data-filter="all">All Posts</button>
+                        <button class="btn btn-outline-primary" data-filter="llm">LLM & NLP</button>
+                        <button class="btn btn-outline-primary" data-filter="cv">Computer Vision</button>
+                        <button class="btn btn-outline-primary" data-filter="ml">Machine Learning</button>
+                        <button class="btn btn-outline-primary" data-filter="tools">Tools & Frameworks</button>
+                    </div>
                 </div>
                 
-                <div class="blog-grid" id="blog-grid">
+                <div class="row" id="blog-grid">
                     <!-- Blog posts will be dynamically loaded -->
                 </div>
                 
-                <div class="blog-load-more">
-                    <button class="btn btn-outline" id="blog-load-more-btn">
-                        <i class="fas fa-plus"></i>
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary" id="blog-load-more-btn">
+                        <i class="fas fa-plus me-2"></i>
                         Load More Posts
                     </button>
                 </div>
@@ -70,28 +72,30 @@ export class BlogManager {
         
         postsToShow.forEach((post, index) => {
             const postElement = document.createElement('article');
-            postElement.className = 'blog-card';
+            postElement.className = 'col-lg-6 mb-4';
             postElement.setAttribute('data-aos', 'fade-up');
             postElement.setAttribute('data-aos-delay', (index * 100).toString());
             
             postElement.innerHTML = `
-                <div class="blog-card-content">
-                    <div class="blog-meta">
-                        <span class="blog-date">${this.formatDate(post.date)}</span>
-                        <div class="blog-tags">
-                            ${post.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted small">${this.formatDate(post.date)}</span>
+                            <div class="d-flex gap-1">
+                                ${post.tags.slice(0, 3).map(tag => `<span class="badge bg-secondary">${tag}</span>`).join('')}
+                            </div>
                         </div>
-                    </div>
-                    <h3 class="blog-title">
-                        <a href="${post.permalink}" class="blog-link">${post.title}</a>
-                    </h3>
-                    <p class="blog-excerpt">${post.excerpt}</p>
-                    <div class="blog-footer">
-                        <span class="read-time">${this.calculateReadTime(post.content)} min read</span>
-                        <a href="${post.permalink}" class="read-more">
-                            Read More
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <h3 class="card-title h5">
+                            <a href="${post.permalink}" class="text-decoration-none">${post.title}</a>
+                        </h3>
+                        <p class="card-text text-muted">${post.excerpt}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="text-muted small">${this.calculateReadTime(post.content)} min read</span>
+                            <a href="${post.permalink}" class="btn btn-outline-primary btn-sm">
+                                Read More
+                                <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             `;
@@ -161,8 +165,8 @@ export class BlogManager {
 
     setupBlogFiltering() {
         document.addEventListener('click', (e) => {
-            if (e.target.matches('.blog-filters .filter-btn')) {
-                const filterButtons = document.querySelectorAll('.blog-filters .filter-btn');
+            if (e.target.matches('.btn-group .btn[data-filter]')) {
+                const filterButtons = document.querySelectorAll('.btn-group .btn[data-filter]');
                 
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');

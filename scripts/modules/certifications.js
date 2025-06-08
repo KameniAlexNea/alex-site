@@ -41,21 +41,25 @@ export class CertificationsManager {
         const certificationsHtml = categories.map(category => {
             const categoryCerts = this.getCertificationsByCategory(category);
             const certsHtml = categoryCerts.map(cert => `
-                <div class="certification-item">
-                    <div class="certification-header">
-                        <h4 class="certification-title">${cert.title}</h4>
-                        <span class="certification-year">${cert.year}</span>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h4 class="card-title h6 mb-0">${cert.title}</h4>
+                                <span class="badge bg-primary">${cert.year}</span>
+                            </div>
+                            <div class="text-primary fw-semibold mb-2">${cert.provider}</div>
+                            ${cert.credential ? `<div class="text-muted small mb-1">Credential ID: ${cert.credential}</div>` : ''}
+                            ${cert.skills ? `<div class="text-muted small">Skills: ${cert.skills}</div>` : ''}
+                        </div>
                     </div>
-                    <div class="certification-provider">${cert.provider}</div>
-                    ${cert.credential ? `<div class="certification-credential">Credential ID: ${cert.credential}</div>` : ''}
-                    ${cert.skills ? `<div class="certification-skills">Skills: ${cert.skills}</div>` : ''}
                 </div>
             `).join('');
 
             return `
-                <div class="certification-category">
-                    <h3 class="category-title">${category}</h3>
-                    <div class="certifications-list">
+                <div class="mb-4">
+                    <h3 class="h5 fw-bold text-primary mb-3">${category}</h3>
+                    <div class="row">
                         ${certsHtml}
                     </div>
                 </div>
@@ -64,8 +68,8 @@ export class CertificationsManager {
 
         container.innerHTML = `
             <div class="certifications-section">
-                <h2>Professional Certifications</h2>
-                <div class="certifications-grid">
+                <h2 class="display-6 fw-bold text-center mb-4">Professional Certifications</h2>
+                <div class="certifications-content">
                     ${certificationsHtml}
                 </div>
             </div>
@@ -78,11 +82,11 @@ export class CertificationsManager {
         if (!container) return;
 
         const skillsHtml = this.skills.map(skillGroup => `
-            <div class="skill-category">
-                <h3 class="skill-category-title">${skillGroup.category}</h3>
-                <div class="skills-list">
+            <div class="mb-4">
+                <h3 class="h5 fw-bold text-primary mb-3">${skillGroup.category}</h3>
+                <div class="d-flex flex-wrap gap-2">
                     ${skillGroup.skills.map(skill => `
-                        <span class="skill-tag">${skill}</span>
+                        <span class="badge bg-secondary">${skill}</span>
                     `).join('')}
                 </div>
             </div>
@@ -90,8 +94,8 @@ export class CertificationsManager {
 
         container.innerHTML = `
             <div class="skills-section">
-                <h2>Technical Skills</h2>
-                <div class="skills-grid">
+                <h2 class="display-6 fw-bold text-center mb-4">Technical Skills</h2>
+                <div class="skills-content">
                     ${skillsHtml}
                 </div>
             </div>

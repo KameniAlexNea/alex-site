@@ -78,12 +78,13 @@ export class AnimationManager {
     }
 
     setupSkillsAnimation() {
-        const skillBars = document.querySelectorAll('.skill-progress');
+        const skillBars = document.querySelectorAll('.progress-bar[data-progress]');
         const skillsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const progress = entry.target.getAttribute('data-progress');
                     entry.target.style.width = progress + '%';
+                    entry.target.setAttribute('aria-valuenow', progress);
                 }
             });
         }, { threshold: 0.5 });

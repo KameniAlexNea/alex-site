@@ -27,39 +27,39 @@ export class PortfolioManager {
         
         projectsToShow.forEach((project, index) => {
             const projectElement = document.createElement('div');
-            projectElement.className = `portfolio-item ${project.category}`;
+            projectElement.className = `col-lg-4 col-md-6 mb-4 portfolio-item ${project.category}`;
             projectElement.setAttribute('data-aos', 'fade-up');
             projectElement.setAttribute('data-aos-delay', (index * 100).toString());
             
             projectElement.innerHTML = `
-                <div class="portfolio-card">
-                    <div class="portfolio-image">
-                        <img src="${project.image}" alt="${project.title}" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <div class="portfolio-links">
-                                ${project.github ? `<a href="${project.github}" target="_blank" class="portfolio-link" aria-label="View on GitHub">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="position-relative overflow-hidden">
+                        <img src="${project.image}" alt="${project.title}" class="card-img-top" style="height: 200px; object-fit: cover;" loading="lazy">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex align-items-center justify-content-center opacity-0 hover-overlay" style="transition: opacity 0.3s ease;">
+                            <div class="d-flex gap-2">
+                                ${project.github ? `<a href="${project.github}" target="_blank" class="btn btn-light btn-sm rounded-circle" style="width: 40px; height: 40px;" aria-label="View on GitHub">
                                     <i class="fab fa-github"></i>
                                 </a>` : ''}
-                                ${project.demo ? `<a href="${project.demo}" target="_blank" class="portfolio-link" aria-label="View Demo">
+                                ${project.demo ? `<a href="${project.demo}" target="_blank" class="btn btn-light btn-sm rounded-circle" style="width: 40px; height: 40px;" aria-label="View Demo">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>` : ''}
-                                <button class="portfolio-link portfolio-details-btn" data-project-id="${project.id}" aria-label="View Details">
+                                <button class="btn btn-light btn-sm rounded-circle portfolio-details-btn" style="width: 40px; height: 40px;" data-project-id="${project.id}" aria-label="View Details">
                                     <i class="fas fa-info-circle"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-content">
-                        <div class="portfolio-meta">
-                            <span class="portfolio-date">${project.date}</span>
-                            <div class="portfolio-tags">
-                                ${project.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">${project.date}</small>
+                            <div class="d-flex gap-1">
+                                ${project.tags.slice(0, 2).map(tag => `<span class="badge bg-secondary">${tag}</span>`).join('')}
                             </div>
                         </div>
-                        <h3 class="portfolio-title">${project.title}</h3>
-                        <p class="portfolio-description">${project.excerpt}</p>
-                        <div class="portfolio-technologies">
-                            ${project.technologies ? project.technologies.slice(0, 4).map(tech => `<span class="tech-tag">${tech}</span>`).join('') : ''}
+                        <h5 class="card-title">${project.title}</h5>
+                        <p class="card-text text-muted">${project.excerpt}</p>
+                        <div class="d-flex flex-wrap gap-1 mt-auto">
+                            ${project.technologies ? project.technologies.slice(0, 3).map(tech => `<span class="badge bg-primary">${tech}</span>`).join('') : ''}
                         </div>
                     </div>
                 </div>
@@ -110,14 +110,20 @@ export class PortfolioManager {
     }
 
     setupFiltering() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
+        const filterButtons = document.querySelectorAll('[data-filter]');
         
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.add('btn-outline-primary');
+                    btn.classList.remove('btn-primary');
+                });
                 // Add active class to clicked button
                 button.classList.add('active');
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
                 
                 const filterValue = button.getAttribute('data-filter');
                 this.filterProjects(filterValue);
